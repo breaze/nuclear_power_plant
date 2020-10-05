@@ -26,8 +26,9 @@ public class PortScanner {
         this.socket = new DatagramSocket();
     }
     
-    public void send(String msg, String server, int port) throws UnknownHostException, IOException
+    public boolean send(String msg, String server, int port) throws UnknownHostException, IOException
     {
+        boolean isConnected = false;
         InetAddress host = InetAddress.getByName(server);        
         int puerto = 9020;
         
@@ -35,8 +36,10 @@ public class PortScanner {
 
         DatagramPacket request = 
                 new DatagramPacket(buffer, buffer.length, host, puerto);
+        if(!this.socket.isConnected())
+            return isConnected;
         this.socket.send(request);
-        
+        return isConnected;
     }
     
     public void scanPort(){
@@ -47,16 +50,21 @@ public class PortScanner {
         ArrayList<Integer> ports = new ArrayList();
         int startPort = Integer.parseInt(portRange[0]);
         int finalPort = Integer.parseInt(portRange[1]);
+        System.out.println("Scanning ports...");
         for(String server : onNetwork)
         {
             for(int i = startPort; i <= finalPort; i++){
+                boolean isConnected;
                 try {
-                    this.send("exist", server, i);
+                    isConnected = this.send("exist", server, i);
+                    if(!isConnected)
+                        continue;
                     String response = this.getResponse();
                     if(response.equals("true"))
                     {
                         neighbours.add(server);
                         ports.add(i);
+                        System.out.println(server+" is reachable in port: "+i);
                     }       
                 } catch (IOException ex) {
                     System.out.println("Error: "+ ex);
@@ -72,7 +80,6 @@ public class PortScanner {
 
         DatagramPacket request = 
                 new DatagramPacket(buffer, buffer.length);
-
         this.socket.receive(request);
         //System.out.println(new String(request.getData()));
         return new String(request.getData());

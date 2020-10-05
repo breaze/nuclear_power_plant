@@ -26,6 +26,7 @@ public class HostScanner {
         String base = pm.getBase();
         ArrayList<String> neighbours = new ArrayList<>();
         int timeout = 100;
+        System.out.println("Scanning devices on network...");
         //TODO: Assign value 1 to i and j variables and change the exit condition of the loops to
         // < 255
         for (int i = 110; i <= 111; i++)
@@ -34,14 +35,12 @@ public class HostScanner {
                 for(int k = 44; k <=46; k++)
                 {
                     try {
-                    String host = base + "." + i+"."+j+"."+k;  
-                    if (InetAddress.getByName(host).isReachable(timeout))
-                    {
-                        System.out.println(host + " is reachable");
-                        neighbours.add(host);
-                    }
-                    else
-                        System.out.println(host);
+                        String host = base + "." + i+"."+j+"."+k;  
+                        if (InetAddress.getByName(host).isReachable(timeout))
+                        {
+                            System.out.println(host + " is reachable");
+                            neighbours.add(host);
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(HostScanner.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -36,7 +36,17 @@ public class PropertiesManager {
             System.out.println(e.toString());
         }
     }
-    public String[] getNeighbourServers(){
+    public String[] getOnNetwork(){
+        String onNetwork[] = this.props.getProperty("server.on_network").split(",");
+        return onNetwork;
+    }
+    
+    public String[] getPortRange(){
+        String portRange[] = this.props.getProperty("server.port_range").split(",");
+        return portRange;
+    }
+    
+    public String[] getNeighbours(){
         String neighbours[] = this.props.getProperty("server.neighbours").split(",");
         return neighbours;
     }
@@ -51,8 +61,6 @@ public class PropertiesManager {
         try {
             FileOutputStream out = new FileOutputStream(this.PROPERTIES_ROUTE);
             this.props.setProperty("server."+key, value);
-            String n = this.props.getProperty("server.neighbours");
-            System.out.println("Hola: "+n);
             props.store(out, null);
         } catch (IOException ex) {
             Logger.getLogger(PropertiesManager.class.getName()).log(Level.SEVERE, null, ex);

@@ -28,11 +28,13 @@ public class HostScanner {
         int timeout = 100;
         //TODO: Assign value 1 to i and j variables and change the exit condition of the loops to
         // < 255
-        for (int i = 23; i <= 24; i++)
+        for (int i = 110; i <= 111; i++)
         {       
-            for(int j = 40; j <= 46; j++){
-                try {
-                    String host = base + "." + i+"."+j;  
+            for(int j = 23; j <= 24; j++){
+                for(int k = 44; k <=46; k++)
+                {
+                    try {
+                    String host = base + "." + i+"."+j+"."+k;  
                     if (InetAddress.getByName(host).isReachable(timeout))
                     {
                         System.out.println(host + " is reachable");
@@ -40,23 +42,24 @@ public class HostScanner {
                     }
                     else
                         System.out.println(host);
-                } catch (IOException ex) {
-                    Logger.getLogger(HostScanner.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(HostScanner.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
-        this.saveNeighbours(neighbours);
+        this.saveOnNetwork(neighbours);
     }
     
-    private void saveNeighbours(ArrayList<String> neighbours){
+    private void saveOnNetwork(ArrayList<String> on_network){
         String value = "";
-        for(int i = 0; i < neighbours.size(); i++){
-            if(i<(neighbours.size()-1))
-                value += neighbours.get(i)+",";
+        for(int i = 0; i < on_network.size(); i++){
+            if(i<(on_network.size()-1))
+                value += on_network.get(i)+",";
             else
-                value +=neighbours.get(i);
+                value +=on_network.get(i);
         }
         PropertiesManager pm = new PropertiesManager();
-        pm.saveValue("neighbours", value);
+        pm.saveValue("on_network", value);
     }
 }

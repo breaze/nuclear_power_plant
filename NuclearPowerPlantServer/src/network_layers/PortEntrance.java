@@ -28,32 +28,35 @@ public class PortEntrance {
         
         while(true)
         {
-            String response = null;
-            byte[] buffer = new byte[1000];
+            String response = "error";
+            byte[] buffer = new byte[10];
             
             DatagramPacket request = new DatagramPacket(buffer, buffer.length);	
             System.out.println("Listening...");
             this.socket.receive(request);
             //The client should send the information in the next format: function:word:definition
             String data = new String(request.getData());
+            data = data.trim();
             System.out.println("server << ("+data+")");
             if(data.equals("close"))
             {
                 send("close", request.getAddress(), request.getPort());
                 break;
-            }else
+            }
+            //System.out.println(data+":"+"alvaro");
+            if(data.equals("running"))
             {
-                response = "error";
-                if(data.equals("exist"))
-                    response = data.toUpperCase();
+                response = data.toUpperCase();
                 this.send(response, request.getAddress(), request.getPort());
             }
+            
         }
         System.out.println("End of the process");
     }
     
     private void send(String msg, InetAddress host, int port) throws IOException
     {
+        System.out.println(port);
         byte[] buffer = msg.getBytes();
 
         DatagramPacket response = 

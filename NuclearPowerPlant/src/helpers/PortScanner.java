@@ -20,26 +20,23 @@ import java.util.logging.Logger;
  * @author Breaze
  */
 public class PortScanner {
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
     public PortScanner() throws SocketException
     {
         this.socket = new DatagramSocket();
     }
     
-    public boolean send(String msg, String server, int port) throws UnknownHostException, IOException
+    public void send(String msg, String server, int port) throws UnknownHostException, IOException
     {
-        boolean isConnected = false;
         InetAddress host = InetAddress.getByName(server);        
-        int puerto = 9020;
         
         byte[] buffer = msg.getBytes();
 
         DatagramPacket request = 
-                new DatagramPacket(buffer, buffer.length, host, puerto);
-        if(!this.socket.isConnected())
-            return isConnected;
+                new DatagramPacket(buffer, buffer.length, host, port);
+        
         this.socket.send(request);
-        return isConnected;
+        
     }
     
     public void scanPort(){
@@ -54,20 +51,16 @@ public class PortScanner {
         for(String server : onNetwork)
         {
             for(int i = startPort; i <= finalPort; i++){
-                boolean isConnected;
                 try {
-                    isConnected = this.send("exist", server, i);
-                    if(!isConnected)
-                        continue;
+                    this.socket.setSoTimeout(1000);
+                    this.send("running", server, i);
                     String response = this.getResponse();
-                    if(response.equals("true"))
-                    {
-                        neighbours.add(server);
-                        ports.add(i);
-                        System.out.println(server+" is reachable in port: "+i);
-                    }       
+                    neighbours.add(server);
+                    ports.add(i);
+                    System.out.println(server+" is reachable in port: "+i);
+                    
                 } catch (IOException ex) {
-                    System.out.println("Error: "+ ex);
+                    //System.out.println("Error: "+ ex.getMessage());
                 }
             }
         }

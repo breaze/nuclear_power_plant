@@ -24,7 +24,7 @@ public class NuclearPowerPlantClient {
         try {
             HostScanner hs = new HostScanner();
             PortScanner ps = new PortScanner();
-            hs.checkHosts();
+            //hs.checkHosts();
             ps.scanPort();
             
             //hs.getIp();

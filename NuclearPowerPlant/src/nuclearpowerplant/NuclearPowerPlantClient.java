@@ -25,7 +25,7 @@ public class NuclearPowerPlantClient {
             HostScanner hs = new HostScanner();
             PortScanner ps = new PortScanner();
             hs.checkHosts();
-            ps.scanPort();
+            //ps.scanPort();
             
             //hs.getIp();
         } catch (SocketException ex) {

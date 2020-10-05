@@ -1,1 +1,5 @@
 /NuclearPowerPlant/build/
+/NuclearPowerPlantServer/nbproject/private/
+/NuclearPowerPlantServer/build/
+/NuclearPowerPlant/src/config.properties
+/NuclearPowerPlantServer/src/config.properties

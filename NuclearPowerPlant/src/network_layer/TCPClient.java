@@ -8,6 +8,7 @@ package network_layer;
 import com.sun.corba.se.spi.activation.Server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -31,11 +32,12 @@ public class TCPClient {
             this.client = new Socket(this.server, this.port);
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
-            this.output.writeUTF("Hola joven");
+            this.output.writeUTF("discharge:0:110");
             String response = this.input.readUTF();
             System.out.println(response);
             this.client.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -5,6 +5,7 @@
  */
 package network_layers;
 
+import controllers.NuclearPowerPlantController;
 import helpers.PropertiesManager;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,6 +21,7 @@ public class TCPServer {
     private ServerSocket server;
     private Socket client;
     private int port;
+    private NuclearPowerPlantController controller;
     
     
     public void TCPServer(){
@@ -30,15 +32,18 @@ public class TCPServer {
         try{
             this.server = new ServerSocket(this.port);
             System.out.println("Listening...");
+            this.controller = new NuclearPowerPlantController();
             while(true){
                 this.client = this.server.accept();
                 System.out.println("Client connected");
-                ServerThread sh = new ServerThread(this.client);
+                if(this.controller==null)
+                    System.out.println("nulo");
+                ServerThread sh = new ServerThread(this.client, this.controller);
                 sh.start();
                 System.out.println("Client disconnected");
                 
             }
-        }catch(Exception e){
+        }catch(IOException e){
             System.out.println(e.getMessage());
         }
     }

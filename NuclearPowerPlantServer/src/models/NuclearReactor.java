@@ -18,6 +18,11 @@ public class NuclearReactor {
     private boolean isOn;
     private String status;
     
+    public NuclearReactor(){
+        this.isOn = false;
+        this.charge = 0;
+        this.status = "working";
+    }
     public boolean turnOn(){
         boolean res = false;
         if(!isWorking())

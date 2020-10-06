@@ -18,58 +18,52 @@ public class NuclearPowerPlant {
     
     public NuclearPowerPlant(){
         this.reactors = new NuclearReactor[3];
+        for(int i = 0; i < this.reactors.length; i++){
+            this.reactors[i] = new NuclearReactor();
+        }
     }
     
     public boolean turnOn(int reactor){
         boolean res = false;
-        try
-        {
+        if(this.reactors!=null)
             res = this.reactors[reactor].turnOn();
-        }catch(DamagedReactorException | ReactorAlreadyOnException e){
-            System.out.println(e.getMessage());
-        }
         return res;
         
     }
     
     public boolean turnOff(int reactor){
         boolean res = false;
-        try
-        {
+        if(this.reactors!=null)
             res = this.reactors[reactor].turnOff();
-        }catch(DamagedReactorException | ReactorAlreadyOffException e){
-            System.out.println(e.getMessage());
-        }
         return res;
         
     }
     
     public boolean chargeReactor(int reactor, int value){
         boolean res = false;
-        try
-        {
+        if (this.reactors != null) {
             this.reactors[reactor].chargeReactor(value);
             res = true;
-        }catch(DamagedReactorException e){
-            System.out.println(e.getMessage());
         }
+        
         return res;
     }
     
     public boolean dischargeReactor(int reactor, int value){
         boolean res = false;
-        try
-        {
+        
+        if (this.reactors != null) {
             this.reactors[reactor].dischargeReactor(value);
             res = true;
-        }catch(DamagedReactorException e){
-            System.out.println(e.getMessage());
         }
         return res;
     }
     
     public boolean repairReactor(int reactor){
-        boolean res = this.reactors[reactor].repairReactor();
+        boolean res = false;
+        if(this.reactors!=null){
+            res = this.reactors[reactor].repairReactor();
+        }
         return res;
     }
     

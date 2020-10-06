@@ -5,6 +5,7 @@
  */
 package network_layers;
 
+import controllers.NuclearPowerPlantController;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,10 +22,12 @@ public class ServerThread extends Thread {
     private Socket client;
     private DataInputStream input;
     private DataOutputStream output;
+    private NuclearPowerPlantController controller;
 
-    public ServerThread(Socket client) {
+    public ServerThread(Socket client, NuclearPowerPlantController controller) {
         try {
             this.client = client;
+            this.controller = controller;
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
         } catch (IOException ex) {
@@ -38,11 +41,36 @@ public class ServerThread extends Thread {
         try {
             String message = this.input.readUTF();
             System.out.println("server >> " + message);
-            this.output.writeUTF("Hola Perras :v ");
+            String order[] = message.split(":");
+            String res = this.trigger(order);
+            this.output.writeUTF(res);
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.disconnect();
+    }
+    public String trigger(String[] order){
+        String response = null;
+        String function = order[0];
+        int reactor = Integer.parseInt(order[1]);
+        switch(function){
+            case "turn_on":
+                response = this.controller.turnOn(reactor);
+                break;
+            case "turn_off":
+                response = this.controller.turnOff(reactor);
+                break;
+            case "charge":
+                response = this.controller.chargeReactor(reactor, Integer.parseInt(order[2]));
+                break;
+            case "discharge":
+                response = this.controller.dischargeReactor(reactor, Integer.parseInt(order[2]));
+                break;
+            case "repair":
+                response = this.controller.repairReactor(reactor);
+                break;
+        }
+        return response;
     }
     
     public final void disconnect() {

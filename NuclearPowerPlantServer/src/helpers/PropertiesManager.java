@@ -44,6 +44,12 @@ public class PropertiesManager {
     
     }
     
+    public int getServerPort(){
+        int port = Integer.parseInt(this.props.getProperty("server.port"));
+        return port;
+    
+    }
+    
     public void saveValue(String key, String value){
         try {
             FileOutputStream out = new FileOutputStream(this.PROPERTIES_ROUTE);

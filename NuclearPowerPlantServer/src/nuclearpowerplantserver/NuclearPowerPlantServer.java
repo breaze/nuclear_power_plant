@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import network_layers.PortEntrance;
+import network_layers.TCPServer;
 
 /**
  *
@@ -21,15 +22,11 @@ public class NuclearPowerPlantServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            // TODO code application logic here
-            PortEntrance pe = new PortEntrance();
-            pe.runServer();
-        } catch (SocketException ex) {
-            Logger.getLogger(NuclearPowerPlantServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(NuclearPowerPlantServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TCPServer server = new TCPServer();
+        server.runServer();
+        
+        //PortEntrance pe = new PortEntrance();
+        //pe.runServer();
     }
     
 }

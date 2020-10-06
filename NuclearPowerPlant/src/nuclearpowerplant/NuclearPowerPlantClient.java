@@ -11,6 +11,7 @@ import helpers.NeighboursScanner;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import network_layer.TCPClient;
 
 /**
  *
@@ -22,13 +23,15 @@ public class NuclearPowerPlantClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
+        /*try {
             NeighboursScanner ns = new NeighboursScanner();
             ns.searchNuclearPowerPlants();
                     
         } catch (SocketException ex) {
             Logger.getLogger(NuclearPowerPlantClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        TCPClient client = new TCPClient("127.0.0.1", 9050);
+        client.connect();
     }
     
 }

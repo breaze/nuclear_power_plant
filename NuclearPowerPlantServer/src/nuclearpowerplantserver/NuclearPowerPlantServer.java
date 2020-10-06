@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import network_layers.PortEntrance;
 import network_layers.TCPServer;
+import network_layers.TCPThread;
+import network_layers.UDPThread;
 
 /**
  *
@@ -22,8 +24,10 @@ public class NuclearPowerPlantServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TCPServer server = new TCPServer();
-        server.runServer();
+        UDPThread udp = new UDPThread();
+        udp.run();
+        TCPThread tcp = new TCPThread();
+        tcp.run();
         
         //PortEntrance pe = new PortEntrance();
         //pe.runServer();

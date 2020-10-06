@@ -5,6 +5,7 @@
  */
 package nuclearpowerplant;
 
+import gui.Home;
 import helpers.NetworkScanner;
 import helpers.PortScanner;
 import helpers.NeighboursScanner;
@@ -30,8 +31,10 @@ public class NuclearPowerPlantClient {
         } catch (SocketException ex) {
             Logger.getLogger(NuclearPowerPlantClient.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        TCPClient client = new TCPClient("127.0.0.1", 9050);
-        client.connect();
+        /*TCPClient client = new TCPClient("127.0.0.1", 9050);
+        client.connect();*/
+        Home home = new Home();
+        home.setVisible(true);
     }
     
 }

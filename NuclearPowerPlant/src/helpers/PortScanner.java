@@ -59,9 +59,13 @@ public class PortScanner {
                     String response = this.getResponse();
                     response = response.replace("\u0000", ""); // removes NUL chars
                     response = response.replace("\\u0000", ""); // removes backslash+u0000
-                    names.add(response);
+                    String data[] = response.split(":");
+                    System.out.println(response);
+                    String name = data[0];
+                    String port = data[1];
+                    names.add(name);
                     neighbours.add(server);
-                    ports.add(i);
+                    ports.add(Integer.parseInt(port));
                     System.out.println(server+" is reachable in port: "+i);
                     
                 } catch (IOException ex) {

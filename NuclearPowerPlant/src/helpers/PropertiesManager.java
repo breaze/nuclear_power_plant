@@ -46,9 +46,21 @@ public class PropertiesManager {
         return portRange;
     }
     
+    public String[] getNeighbourPorts(){
+        String neighbourPorts[] = this.props.getProperty("server.ports").split(",");
+        for(String n : neighbourPorts)
+            System.out.println(n);
+        return neighbourPorts;
+    }
+    
     public String[] getNeighbours(){
         String neighbours[] = this.props.getProperty("server.neighbours").split(",");
         return neighbours;
+    }
+    
+    public String[] getNeighbourNames(){
+        String neighbour_names[] = this.props.getProperty("server.neighbour_names").split(",");
+        return neighbour_names;
     }
     
     public String getBase(){

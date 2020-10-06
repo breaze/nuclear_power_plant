@@ -49,7 +49,7 @@ public class PortEntrance {
             {
                 PropertiesManager pm = new PropertiesManager();
                 String name = pm.getServerName();
-                response = name;
+                response = name+":"+pm.getServerPort();
                 this.send(response, request.getAddress(), request.getPort());
             }
             

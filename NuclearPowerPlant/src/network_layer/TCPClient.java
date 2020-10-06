@@ -22,22 +22,33 @@ public class TCPClient {
     private DataInputStream input;
     private DataOutputStream output;
     
-    public TCPClient(String server, int port){
+    /*public TCPClient(String server, int port){
         this.server = server;
         this.port = port;
-    }
+    }*/
     
-    public void connect(){
+    public String connect(String msg){
+        String res = null;
         try {
             this.client = new Socket(this.server, this.port);
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
-            this.output.writeUTF("discharge:0:110");
-            String response = this.input.readUTF();
-            System.out.println(response);
+            this.output.writeUTF(msg);
+            res = this.input.readUTF();
             this.client.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            res = e.getMessage();
         }
+        return res;
     }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+    
+    
 }

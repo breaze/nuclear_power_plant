@@ -5,8 +5,9 @@
  */
 package nuclearpowerplant;
 
-import helpers.HostScanner;
+import helpers.NetworkScanner;
 import helpers.PortScanner;
+import helpers.NeighboursScanner;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +23,9 @@ public class NuclearPowerPlantClient {
      */
     public static void main(String[] args) {
         try {
-            HostScanner hs = new HostScanner();
-            PortScanner ps = new PortScanner();
-            //hs.checkHosts();
-            ps.scanPort();
-            
-            //hs.getIp();
+            NeighboursScanner ns = new NeighboursScanner();
+            ns.searchNuclearPowerPlants();
+                    
         } catch (SocketException ex) {
             Logger.getLogger(NuclearPowerPlantClient.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -36,24 +36,11 @@ public class PropertiesManager {
             System.out.println(e.toString());
         }
     }
-    public String[] getOnNetwork(){
-        String onNetwork[] = this.props.getProperty("server.on_network").split(",");
-        return onNetwork;
-    }
+   
     
-    public String[] getPortRange(){
-        String portRange[] = this.props.getProperty("server.port_range").split(",");
-        return portRange;
-    }
-    
-    public String[] getNeighbours(){
-        String neighbours[] = this.props.getProperty("server.neighbours").split(",");
-        return neighbours;
-    }
-    
-    public String getBase(){
-        String base = this.props.getProperty("server.base");
-        return base;
+    public String getServerName(){
+        String name = this.props.getProperty("server.name");
+        return name;
     
     }
     

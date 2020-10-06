@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Breaze
  */
-public class HostScanner {
+public class NetworkScanner {
     public void checkHosts(){
         PropertiesManager pm = new PropertiesManager();
         String base = pm.getBase();
@@ -42,7 +42,7 @@ public class HostScanner {
                             neighbours.add(host);
                         }
                     } catch (IOException ex) {
-                        Logger.getLogger(HostScanner.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(NetworkScanner.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

@@ -12,6 +12,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,11 +40,12 @@ public class PortScanner {
         
     }
     
-    public void scanPort(){
+    public ArrayList<ArrayList> scanPort(){
         PropertiesManager pm = new PropertiesManager();
         String portRange[] = pm.getPortRange();
         String onNetwork[] = pm.getOnNetwork();
         ArrayList<String> neighbours = new ArrayList();
+        ArrayList<String> names = new ArrayList();
         ArrayList<Integer> ports = new ArrayList();
         int startPort = Integer.parseInt(portRange[0]);
         int finalPort = Integer.parseInt(portRange[1]);
@@ -55,6 +57,9 @@ public class PortScanner {
                     this.socket.setSoTimeout(1000);
                     this.send("running", server, i);
                     String response = this.getResponse();
+                    response = response.replace("\u0000", ""); // removes NUL chars
+                    response = response.replace("\\u0000", ""); // removes backslash+u0000
+                    names.add(response);
                     neighbours.add(server);
                     ports.add(i);
                     System.out.println(server+" is reachable in port: "+i);
@@ -64,7 +69,11 @@ public class PortScanner {
                 }
             }
         }
-        this.saveNeighbours(neighbours, ports);
+        ArrayList<ArrayList> neighboursInfo = new ArrayList<ArrayList>();
+        neighboursInfo.add(neighbours);
+        neighboursInfo.add(ports);
+        neighboursInfo.add(names);
+        return neighboursInfo;
         
     }
     public String getResponse() throws IOException
@@ -76,18 +85,5 @@ public class PortScanner {
         this.socket.receive(request);
         //System.out.println(new String(request.getData()));
         return new String(request.getData());
-    }
-    
-    public void saveNeighbours(ArrayList<String> serverList, ArrayList<Integer> serverPorts){
-        PropertiesManager pm = new PropertiesManager();
-        String servers = "";
-        String ports = "";
-        for(int i = 0; i < serverList.size(); i++){
-            
-            servers += (i<serverList.size()-1)?serverList.get(i)+",":serverList.get(i);
-            ports += (i<serverPorts.size()-1)?serverPorts.get(i)+",":serverPorts.get(i);
-        }
-        pm.saveValue("neighbours", servers);
-        pm.saveValue("ports", ports);
     }
 }

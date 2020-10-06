@@ -5,6 +5,7 @@
  */
 package network_layers;
 
+import helpers.PropertiesManager;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -46,7 +47,9 @@ public class PortEntrance {
             //System.out.println(data+":"+"alvaro");
             if(data.equals("running"))
             {
-                response = data.toUpperCase();
+                PropertiesManager pm = new PropertiesManager();
+                String name = pm.getServerName();
+                response = name;
                 this.send(response, request.getAddress(), request.getPort());
             }
             

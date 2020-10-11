@@ -30,7 +30,7 @@ public class PortEntrance {
         while(true)
         {
             String response = "error";
-            byte[] buffer = new byte[10];
+            byte[] buffer = new byte[30];
             
             DatagramPacket request = new DatagramPacket(buffer, buffer.length);	
             System.out.println("Listening...");

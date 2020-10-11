@@ -52,6 +52,7 @@ public class NuclearReactor {
         this.charge+=value;
         if(this.charge>100)
         {
+            this.turnOff();
             this.status = "damaged";
             throw new DamagedReactorException("The reactor is damaged due the charge level surpassed the limit");
         }
@@ -71,6 +72,7 @@ public class NuclearReactor {
             return res;
         res = true;
         this.status = "working";
+        this.charge = 0;
         return res;
     }
     

@@ -5,11 +5,12 @@
  */
 package network_layer;
 
-import com.sun.corba.se.spi.activation.Server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  *
@@ -18,7 +19,8 @@ import java.net.Socket;
 public class TCPClient {
     private String server;
     private int port;
-    private Socket client;
+    //private Socket client;
+    private SSLSocket client;
     private DataInputStream input;
     private DataOutputStream output;
     
@@ -30,7 +32,10 @@ public class TCPClient {
     public String connect(String msg){
         String res = null;
         try {
-            this.client = new Socket(this.server, this.port);
+            //this.client = new Socket(this.server, this.port);
+            SSLSocketFactory sslSocketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+            this.client = (SSLSocket)sslSocketFactory.createSocket(this.server, this.port);
+
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
             this.output.writeUTF(msg);
@@ -43,11 +48,11 @@ public class TCPClient {
     }
 
     public void setServer(String server) {
-        this.server = server;
+        this.server = "25.110.23.45";
     }
 
     public void setPort(int port) {
-        this.port = port;
+        this.port = 9090;
     }
     
     

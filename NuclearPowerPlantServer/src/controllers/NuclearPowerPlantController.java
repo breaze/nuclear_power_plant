@@ -78,7 +78,9 @@ public class NuclearPowerPlantController {
         String res = null;
         boolean response = this.npp.repairReactor(reactor);
         if(response)
-                res = "Reactor repared";
+            res = "Reactor repared";
+        else
+            res = "Reactor Working";
         return res;
     }
     

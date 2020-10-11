@@ -195,21 +195,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Turn Off"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTurnOffActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCharge">
           <Properties>
             <Property name="text" type="java.lang.String" value="Charge"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChargeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDischarge">
           <Properties>
             <Property name="text" type="java.lang.String" value="Discharge"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDischargeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRepair">
           <Properties>
             <Property name="text" type="java.lang.String" value="Repair"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRepairActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>

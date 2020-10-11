@@ -33,6 +33,9 @@ public class NuclearPowerPlantClient {
         }*/
         /*TCPClient client = new TCPClient("127.0.0.1", 9050);
         client.connect();*/
+        System.setProperty("javax.net.ssl.trustStore", "myKeystore.jks");
+        System.setProperty("javax.net.ssl.trustStorePassword", "123456789");
+
         Home home = new Home();
         home.setVisible(true);
     }

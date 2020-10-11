@@ -12,13 +12,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 
 /**
  *
  * @author Breaze
  */
 public class TCPServer {
-    private ServerSocket server;
+    //private ServerSocket server;
+    private SSLServerSocket server;
     private Socket client;
     private int port;
     private NuclearPowerPlantController controller;
@@ -30,11 +34,14 @@ public class TCPServer {
     public void runServer(){
         this.readPort();
         try{
-            this.server = new ServerSocket(this.port);
+            //this.server = new ServerSocket(this.port);
+            SSLServerSocketFactory sslServerSocketFactory = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
+            this.server = (SSLServerSocket)sslServerSocketFactory.createServerSocket(this.port);
             System.out.println("Listening...");
             this.controller = new NuclearPowerPlantController();
             while(true){
-                this.client = this.server.accept();
+                //this.client = this.server.accept();
+                SSLSocket clientSocket = (SSLSocket) this.server.accept();
                 System.out.println("Client connected");
                 if(this.controller==null)
                     System.out.println("nulo");

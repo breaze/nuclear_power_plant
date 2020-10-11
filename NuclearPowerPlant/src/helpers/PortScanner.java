@@ -69,6 +69,7 @@ public class PortScanner {
                     System.out.println(server+" is reachable in port: "+i);
                     
                 } catch (IOException ex) {
+                    System.out.println(server+" is not reachable in port: "+i);
                     //System.out.println("Error: "+ ex.getMessage());
                 }
             }
@@ -82,7 +83,7 @@ public class PortScanner {
     }
     public String getResponse() throws IOException
     {
-        byte[] buffer = new byte[10];
+        byte[] buffer = new byte[30];
 
         DatagramPacket request = 
                 new DatagramPacket(buffer, buffer.length);

@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/helpers/PropertiesManager.java</file>
             <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/network_layer/TCPClient.java</file>
+            <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/config.properties</file>
+            <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/gui/Home.java</file>
+            <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/nuclearpowerplant/NuclearPowerPlantClient.java</file>
+            <file>file:/D:/Sistemas%20Distribuidos/nuclear_power_plant/NuclearPowerPlant/src/helpers/NeighboursScanner.java</file>
         </group>
     </open-files>
 </project-private>

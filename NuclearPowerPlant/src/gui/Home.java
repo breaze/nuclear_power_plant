@@ -10,6 +10,7 @@ import helpers.PropertiesManager;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import network_layer.TCPClient;
 
 /**
@@ -32,6 +33,7 @@ public class Home extends javax.swing.JFrame {
     public void loadNeighbours(){
         PropertiesManager pm = new PropertiesManager();
         String neighbour_names[] = pm.getNeighbourNames();
+        cmbNuclearPowerPlant.removeAllItems();
         for(String neighbour : neighbour_names)
         {
             cmbNuclearPowerPlant.addItem(neighbour);
@@ -88,12 +90,32 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnTurnOff.setText("Turn Off");
+        btnTurnOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTurnOffActionPerformed(evt);
+            }
+        });
 
         btnCharge.setText("Charge");
+        btnCharge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChargeActionPerformed(evt);
+            }
+        });
 
         btnDischarge.setText("Discharge");
+        btnDischarge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDischargeActionPerformed(evt);
+            }
+        });
 
         btnRepair.setText("Repair");
+        btnRepair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepairActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Console:");
 
@@ -202,6 +224,7 @@ public class Home extends javax.swing.JFrame {
         } catch (SocketException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.loadNeighbours();
     }//GEN-LAST:event_mnuUpdateListActionPerformed
 
     private void cmbNuclearPowerPlantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNuclearPowerPlantActionPerformed
@@ -222,6 +245,64 @@ public class Home extends javax.swing.JFrame {
         txtConsole.setText(res);
         
     }//GEN-LAST:event_btnTurnOnActionPerformed
+
+    private void btnTurnOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurnOffActionPerformed
+        int server = cmbNuclearPowerPlant.getSelectedIndex();
+        int reactor = cmbReactors.getSelectedIndex();
+        String info[] = this.getNeighbourInfo(server);
+        String ip = info[0];
+        int port = Integer.parseInt(info[1]);
+        this.client.setServer(ip);
+        this.client.setPort(port);
+        String msg = "turn_off:"+reactor+":null";
+        System.out.println(msg);
+        String res = this.client.connect(msg);
+        txtConsole.setText(res);
+    }//GEN-LAST:event_btnTurnOffActionPerformed
+
+    private void btnRepairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepairActionPerformed
+        int server = cmbNuclearPowerPlant.getSelectedIndex();
+        int reactor = cmbReactors.getSelectedIndex();
+        String info[] = this.getNeighbourInfo(server);
+        String ip = info[0];
+        int port = Integer.parseInt(info[1]);
+        this.client.setServer(ip);
+        this.client.setPort(port);
+        String msg = "repair:"+reactor+":null";
+        System.out.println(msg);
+        String res = this.client.connect(msg);
+        txtConsole.setText(res);
+    }//GEN-LAST:event_btnRepairActionPerformed
+
+    private void btnChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChargeActionPerformed
+        int server = cmbNuclearPowerPlant.getSelectedIndex();
+        int reactor = cmbReactors.getSelectedIndex();
+        String value = JOptionPane.showInputDialog("Introduce the value to charge");
+        String info[] = this.getNeighbourInfo(server);
+        String ip = info[0];
+        int port = Integer.parseInt(info[1]);
+        this.client.setServer(ip);
+        this.client.setPort(port);
+        String msg = "charge:"+reactor+":"+value;
+        System.out.println(msg);
+        String res = this.client.connect(msg);
+        txtConsole.setText(res);
+    }//GEN-LAST:event_btnChargeActionPerformed
+
+    private void btnDischargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDischargeActionPerformed
+        int server = cmbNuclearPowerPlant.getSelectedIndex();
+        int reactor = cmbReactors.getSelectedIndex();
+        String value = JOptionPane.showInputDialog("Introduce the value to discharge");
+        String info[] = this.getNeighbourInfo(server);
+        String ip = info[0];
+        int port = Integer.parseInt(info[1]);
+        this.client.setServer(ip);
+        this.client.setPort(port);
+        String msg = "discharge:"+reactor+":"+value;
+        System.out.println(msg);
+        String res = this.client.connect(msg);
+        txtConsole.setText(res);
+    }//GEN-LAST:event_btnDischargeActionPerformed
 
     public String[] getNeighbourInfo(int powerPlant){
         String res[] = new String[2];

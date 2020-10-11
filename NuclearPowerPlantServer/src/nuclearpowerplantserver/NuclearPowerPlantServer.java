@@ -24,13 +24,13 @@ public class NuclearPowerPlantServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.setProperty("javax.net.ssl.keyStore","mykeystore.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword","123456789");
+
         UDPThread udp = new UDPThread();
-        udp.run();
+        udp.start();
         TCPThread tcp = new TCPThread();
-        tcp.run();
-        
-        //PortEntrance pe = new PortEntrance();
-        //pe.runServer();
+        tcp.start();
     }
     
 }

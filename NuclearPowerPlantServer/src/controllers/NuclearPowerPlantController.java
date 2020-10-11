@@ -6,9 +6,10 @@
 package controllers;
 
 import exceptions.DamagedReactorException;
-import exceptions.ReactorAlreadyOffException;
+import exceptions.ReactorOffException;
 import exceptions.ReactorAlreadyOnException;
 import models.NuclearPowerPlant;
+import models.NuclearReactor;
 
 /**
  *
@@ -41,7 +42,7 @@ public class NuclearPowerPlantController {
             boolean response = this.npp.turnOff(reactor);
             if(response)
                 res = "Reactor off";
-        }catch(DamagedReactorException | ReactorAlreadyOffException e){
+        }catch(DamagedReactorException | ReactorOffException e){
             res = "Error: "+e.getMessage();
             System.out.println("Error: "+e.getMessage());
         }
@@ -54,7 +55,7 @@ public class NuclearPowerPlantController {
             boolean response = this.npp.chargeReactor(reactor, value);
             if(response)
                 res = "Reactor charged";
-        }catch(DamagedReactorException e){
+        }catch(Exception e){
             res = "Error: "+e.getMessage();
             System.out.println("Error: "+e.getMessage());
         }
@@ -83,5 +84,14 @@ public class NuclearPowerPlantController {
             res = "Reactor Working";
         return res;
     }
+    
+    public String getReactorInfo(int reactor){
+        String info = "";
+        NuclearReactor r = this.npp.getReactor(reactor);
+        info = "Is on: "+r.isIsOn()+", status: "+r.getStatus()+", charge: "+r.getCharge();
+        return info;
+        
+    }
+    
     
 }

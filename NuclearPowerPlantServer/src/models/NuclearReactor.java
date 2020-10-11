@@ -6,7 +6,7 @@
 package models;
 
 import exceptions.DamagedReactorException;
-import exceptions.ReactorAlreadyOffException;
+import exceptions.ReactorOffException;
 import exceptions.ReactorAlreadyOnException;
 
 /**
@@ -39,7 +39,7 @@ public class NuclearReactor {
         if(!isWorking())
             throw new DamagedReactorException("The reactor is damaged and cannot be turned off");
         if(!isOn)
-           throw new ReactorAlreadyOffException("The reactor is already off");
+           throw new ReactorOffException("The reactor is already off");
         this.isOn = false;
         this.charge = 0;
         res = true;
@@ -49,10 +49,12 @@ public class NuclearReactor {
     public void chargeReactor(int value){
         if(!isWorking())
             throw new DamagedReactorException("The reactor is damaged and cannot be charged");
+        if(!isOn)
+           throw new ReactorOffException("The reactor is off and cannot be charged");
         this.charge+=value;
         if(this.charge>100)
         {
-            this.turnOff();
+            this.isOn = false;
             this.status = "damaged";
             throw new DamagedReactorException("The reactor is damaged due the charge level surpassed the limit");
         }
@@ -61,6 +63,8 @@ public class NuclearReactor {
     public void dischargeReactor(int value){
         if(!isWorking())
             throw new DamagedReactorException("The reactor is damaged and cannot be discharged");
+        if(!isOn)
+           throw new ReactorOffException("The reactor is off and cannot be discharged");
         this.charge-=value;
         if(this.charge<0)
             this.charge = 0;
@@ -80,5 +84,31 @@ public class NuclearReactor {
         boolean isWorking = (this.status.equals("working"));
         return isWorking;
     }
+
+    public float getCharge() {
+        return charge;
+    }
+
+    public void setCharge(float charge) {
+        this.charge = charge;
+    }
+
+    public boolean isIsOn() {
+        return isOn;
+    }
+
+    public void setIsOn(boolean isOn) {
+        this.isOn = isOn;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
     
 }

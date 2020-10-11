@@ -43,7 +43,9 @@ public class ServerThread extends Thread {
             System.out.println("server >> " + message);
             String order[] = message.split(":");
             String res = this.trigger(order);
-            this.output.writeUTF(res);
+            int reactor = Integer.parseInt(order[1]);
+            String info = this.controller.getReactorInfo(reactor);
+            this.output.writeUTF(res+"\n "+info);
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }

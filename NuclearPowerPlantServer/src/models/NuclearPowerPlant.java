@@ -6,7 +6,7 @@
 package models;
 
 import exceptions.DamagedReactorException;
-import exceptions.ReactorAlreadyOffException;
+import exceptions.ReactorOffException;
 import exceptions.ReactorAlreadyOnException;
 
 /**
@@ -21,6 +21,14 @@ public class NuclearPowerPlant {
         for(int i = 0; i < this.reactors.length; i++){
             this.reactors[i] = new NuclearReactor();
         }
+    }
+
+    public NuclearReactor[] getReactors() {
+        return reactors;
+    }
+    
+    public NuclearReactor getReactor(int reactor){
+        return this.reactors[reactor];
     }
     
     public boolean turnOn(int reactor){

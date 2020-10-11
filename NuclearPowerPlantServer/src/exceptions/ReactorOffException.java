@@ -9,8 +9,8 @@ package exceptions;
  *
  * @author Breaze
  */
-public class ReactorAlreadyOffException extends RuntimeException{
-    public ReactorAlreadyOffException(String message){
+public class ReactorOffException extends RuntimeException{
+    public ReactorOffException(String message){
         super(message);
     }
     

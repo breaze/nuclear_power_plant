@@ -41,7 +41,7 @@ public class TCPServer {
             this.controller = new NuclearPowerPlantController();
             while(true){
                 //this.client = this.server.accept();
-                SSLSocket clientSocket = (SSLSocket) this.server.accept();
+                this.client = (SSLSocket) this.server.accept();
                 System.out.println("Client connected");
                 if(this.controller==null)
                     System.out.println("nulo");

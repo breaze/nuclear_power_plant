@@ -12,6 +12,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -26,10 +29,12 @@ public class TCPServer {
     private Socket client;
     private int port;
     private NuclearPowerPlantController controller;
+    private ArrayList<Socket> connections;
     
     
     public void TCPServer(){
         this.server = null;
+        this.connections = new ArrayList<>();
     }
     public void runServer(){
         this.readPort();
@@ -42,12 +47,16 @@ public class TCPServer {
             while(true){
                 //this.client = this.server.accept();
                 this.client = (SSLSocket) this.server.accept();
+                this.connections.add(this.client);
                 System.out.println("Client connected");
                 if(this.controller==null)
                     System.out.println("nulo");
-                ServerThread sh = new ServerThread(this.client, this.controller);
+                ServerThread sh = new ServerThread(this.client, this.controller, this);
+                
+                //this.connections.add(new ServerThread(this.client, this.controller, this));
                 sh.start();
-                System.out.println("Client disconnected");
+                //this.connections.get(this.connections.size()-1).start();
+                //System.out.println("Client disconnected");
                 
             }
         }catch(IOException e){
@@ -60,4 +69,11 @@ public class TCPServer {
         int serverPort = pm.getServerPort();
         this.port = serverPort;
     }
+    
+    //TODO: updtateClients()
+    /**
+     *  for(connections) //
+     *  update //input controller.getReactorInfo();
+     */
+    
 }

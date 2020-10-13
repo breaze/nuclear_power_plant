@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.net.ssl.SSLSocket;
 
 /**
  *
@@ -23,16 +24,23 @@ public class ServerThread extends Thread {
     private DataInputStream input;
     private DataOutputStream output;
     private NuclearPowerPlantController controller;
+    private TCPServer parent;
 
-    public ServerThread(Socket client, NuclearPowerPlantController controller) {
+    //TODO: ADD PARAM OF TCP SERVER
+    public ServerThread(Socket client, NuclearPowerPlantController controller, TCPServer parent) {
         try {
             this.client = client;
             this.controller = controller;
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
+            this.parent = parent;
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Socket getClient() {
+        return this.client;
     }
 
 
@@ -46,10 +54,11 @@ public class ServerThread extends Thread {
             int reactor = Integer.parseInt(order[1]);
             String info = this.controller.getReactorInfo(reactor);
             this.output.writeUTF(res+"\n "+info);
+            //this.parent.updateClients();
         } catch (IOException ex) {
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.disconnect();
+        //this.disconnect();
     }
     public String trigger(String[] order){
         String response = null;
@@ -82,4 +91,18 @@ public class ServerThread extends Thread {
             System.out.println(e.getMessage());
         }
     }
+
+    public DataOutputStream getOutput() {
+        return output;
+    }
+
+    /*public String getMessage() {
+        return message;
+    }
+
+    public String getRes() {
+        return res;
+    }*/
+    
+    
 }

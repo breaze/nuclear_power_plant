@@ -38,6 +38,8 @@ public class NuclearPowerPlantClient {
 
         Home home = new Home();
         home.setVisible(true);
+        NetworkScanner net = new NetworkScanner();
+        //net.
     }
     
 }

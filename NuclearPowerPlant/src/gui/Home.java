@@ -234,6 +234,7 @@ public class Home extends javax.swing.JFrame {
     private void btnTurnOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurnOnActionPerformed
         int server = cmbNuclearPowerPlant.getSelectedIndex();
         int reactor = cmbReactors.getSelectedIndex();
+        System.out.println(server);
         String info[] = this.getNeighbourInfo(server);
         String ip = info[0];
         int port = Integer.parseInt(info[1]);

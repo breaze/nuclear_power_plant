@@ -34,12 +34,15 @@ public class TCPClient {
         try {
             //this.client = new Socket(this.server, this.port);
             SSLSocketFactory sslSocketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+            System.out.println("sdfads: "+server);
             this.client = (SSLSocket)sslSocketFactory.createSocket(this.server, this.port);
 
             this.input = new DataInputStream(this.client.getInputStream());
             this.output = new DataOutputStream(this.client.getOutputStream());
             this.output.writeUTF(msg);
             res = this.input.readUTF();
+            //String update = this.input.readUTF();
+            //System.out.println("changes"+update);
             this.client.close();
         } catch (IOException e) {
             res = e.getMessage();
@@ -48,7 +51,7 @@ public class TCPClient {
     }
 
     public void setServer(String server) {
-        this.server = "25.110.23.45";
+        this.server = server;
     }
 
     public void setPort(int port) {

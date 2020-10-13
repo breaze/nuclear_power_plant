@@ -88,7 +88,8 @@ public class NuclearPowerPlantController {
     public String getReactorInfo(int reactor){
         String info = "";
         NuclearReactor r = this.npp.getReactor(reactor);
-        info = "Is on: "+r.isIsOn()+", status: "+r.getStatus()+", charge: "+r.getCharge();
+        //info = "Is on: "+r.isIsOn()+", status: "+r.getStatus()+", charge: "+r.getCharge();
+        info = r.isIsOn()+":"+r.getStatus()+":"+r.getCharge();
         return info;
         
     }

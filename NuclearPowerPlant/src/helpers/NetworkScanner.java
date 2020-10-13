@@ -31,8 +31,8 @@ public class NetworkScanner {
         // < 255
         for (int i = 110; i <= 111; i++)
         {       
-            for(int j = 23; j <= 24; j++){
-                for(int k = 44; k <=46; k++)
+            for(int j = 19; j <= 24; j++){
+                for(int k = 44; k <=75; k++)
                 {
                     try {
                         String host = base + "." + i+"."+j+"."+k;  

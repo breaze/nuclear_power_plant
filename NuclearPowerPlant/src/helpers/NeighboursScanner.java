@@ -41,6 +41,9 @@ public class NeighboursScanner {
             ports += (i<serverPorts.size()-1)?serverPorts.get(i)+",":serverPorts.get(i);
             neighbourNames += (i<names.size()-1)?names.get(i)+",":names.get(i);
         }
+        System.out.println(servers);
+        System.out.println(ports);
+        System.out.println(neighbourNames);
         pm.saveValue("neighbours", servers);
         pm.saveValue("ports", ports);
         pm.saveValue("neighbour_names", neighbourNames);

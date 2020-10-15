@@ -47,7 +47,6 @@ public class TCPServer {
             while(true){
                 //this.client = this.server.accept();
                 this.client = (SSLSocket) this.server.accept();
-                this.connections.add(this.client);
                 System.out.println("Client connected");
                 if(this.controller==null)
                     System.out.println("nulo");
